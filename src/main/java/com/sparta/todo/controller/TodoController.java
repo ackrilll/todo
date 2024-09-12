@@ -33,4 +33,10 @@ public class TodoController {
                                                             @RequestBody TodoUpdateRequestDto todoUpdateRequestDto){
         return ResponseEntity.ok(todoService.updateTodo(todoId, todoUpdateRequestDto));
     }
+
+    @DeleteMapping("/todos/{todoId}")
+    public void deleteTodo(@PathVariable Long todoId, @RequestBody TodoDeleteRequestDto todoDeleteRequestDto){
+        todoService.deleteTodo(todoId,todoDeleteRequestDto);
+    }
+
 }

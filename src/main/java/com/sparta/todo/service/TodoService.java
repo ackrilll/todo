@@ -74,4 +74,14 @@ public class TodoService {
                 todo.getModifiedAt()
         );
     }
+
+    @Transactional
+    public void deleteTodo(Long todoId, TodoDeleteRequestDto todoDeleteRequestDto) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(()->new NullPointerException("일정 못 찾음"));
+        if(!todo.getPassword().equals(todoDeleteRequestDto.getPassword())){
+            throw new NullPointerException("패스워드 불일치");
+        }
+        todoRepository.delete(todo);
+
+    }
 }
