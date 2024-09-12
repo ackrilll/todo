@@ -1,9 +1,6 @@
 package com.sparta.todo.service;
 
-import com.sparta.todo.dto.TodoDetailResponseDto;
-import com.sparta.todo.dto.TodoSaveRequestDto;
-import com.sparta.todo.dto.TodoSaveResponseDto;
-import com.sparta.todo.dto.TodoSimpleResponseDto;
+import com.sparta.todo.dto.*;
 import com.sparta.todo.entity.Todo;
 import com.sparta.todo.repository.TodoRepository;
 import lombok.RequiredArgsConstructor;
@@ -63,5 +60,18 @@ public class TodoService {
                 todo.getManagerName(),
                 todo.getCreatedAt(),
                 todo.getModifiedAt());
+    }
+
+    @Transactional
+    public TodoUpdateResponseDto updateTodo(Long todoId, TodoUpdateRequestDto todoUpdateRequestDto) {
+        Todo todo = todoRepository.findById(todoId).orElseThrow(()->new NullPointerException("일정 못 찾음"));
+        todo.update(todoUpdateRequestDto.getTodo(),todoUpdateRequestDto.getManagerName());
+        return new TodoUpdateResponseDto(
+                todo.getId(),
+                todo.getTodo(),
+                todo.getManagerName(),
+                todo.getCreatedAt(),
+                todo.getModifiedAt()
+        );
     }
 }
