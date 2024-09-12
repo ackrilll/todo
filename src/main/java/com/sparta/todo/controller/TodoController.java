@@ -1,5 +1,6 @@
 package com.sparta.todo.controller;
 
+import com.sparta.todo.dto.TodoDetailResponseDto;
 import com.sparta.todo.dto.TodoSaveRequestDto;
 import com.sparta.todo.dto.TodoSaveResponseDto;
 import com.sparta.todo.dto.TodoSimpleResponseDto;
@@ -23,5 +24,10 @@ public class TodoController {
     @GetMapping("/todos")
     public ResponseEntity<List<TodoSimpleResponseDto>> getTodos(@RequestParam String date){
         return ResponseEntity.ok(todoService.getTodos(date));
+    }
+
+    @GetMapping("/todos/{todoId}")
+    public ResponseEntity<TodoDetailResponseDto> getTodo(@PathVariable Long todoId){
+        return ResponseEntity.ok(todoService.getTodo(todoId));
     }
 }
